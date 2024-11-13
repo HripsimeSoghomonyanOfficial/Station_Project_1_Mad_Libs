@@ -9,49 +9,62 @@ templates = [
 ]
 
 def get_input(prompt):
-    return input(prompt + ": ")
+    while True:
+        user_input = input(prompt + ": ").strip()
+        if user_input:
+            return user_input
+        else:
+            print("Input cannot be empty. Please try again.")
 
 def generate_story(template):
-    inputs = {
-        "number": get_input("Type a number"),
-        "measure_of_time": get_input("Type a measure of time"),
-        "mode_of_transportation": get_input("Type a mode of transportation"),
-        "adjective": get_input("Type an adjective"),
-        "adjective2": get_input("Type another adjective"),
-        "noun": get_input("Type a noun"),
-        "color": get_input("Type a color"),
-        "body_part": get_input("Type a part of the body"),
-        "verb": get_input("Type a verb"),
-        "number2": get_input("Type another number"),
-        "noun2": get_input("Type another noun"),
-        "noun3": get_input("Type one more noun"),
-        "body_part2": get_input("Type another part of the body"),
-        "verb2": get_input("Type another verb"),
-        "noun4": get_input("Type a final noun"),
-        "adjective3": get_input("Type another adjective"),
-        "silly_word": get_input("Type a silly word"),
-        "person_name": get_input("Type a person’s name"),
-        "feeling1": get_input("Type a feeling"),
-        "feeling2": get_input("Type another feeling"),
-        "animal": get_input("Type an animal"),
-        "verb2": get_input("Type another verb"),
-        "color2": get_input("Type another color"),
-        "adverb": get_input("Type an adverb"),
-        "animal2": get_input("Type another animal"),
-        "silly_word": get_input("Type a silly word"),
-        "place": get_input("Type a place"),
-        "creature_plural1": get_input("Type a magical creature (plural)"),
-        "creature_plural2": get_input("Type another magical creature (plural)"),
-        "room": get_input("Type a room in a house"),
-        "plural_noun3": get_input("Type a plural noun"),
-        "adjective4": get_input("Type another adjective"),
-        "plural_noun4": get_input("Type another plural noun"),
-        "verb_ing": get_input("Type a verb ending in 'ing'"),
-        "adjective5": get_input("Type another adjective"),
-        "noun5": get_input("Type another noun")
-    }
-    story = template.format(**inputs)
-    print("\nGenerated Story:\n", story)
+    try:
+        inputs = {
+            "number": get_input("Type a number"),
+            "measure_of_time": get_input("Type a measure of time"),
+            "mode_of_transportation": get_input("Type a mode of transportation"),
+            "adjective": get_input("Type an adjective"),
+            "adjective2": get_input("Type another adjective"),
+            "noun": get_input("Type a noun"),
+            "color": get_input("Type a color"),
+            "body_part": get_input("Type a part of the body"),
+            "verb": get_input("Type a verb"),
+            "number2": get_input("Type another number"),
+            "noun2": get_input("Type another noun"),
+            "noun3": get_input("Type one more noun"),
+            "body_part2": get_input("Type another part of the body"),
+            "verb2": get_input("Type another verb"),
+            "noun4": get_input("Type a final noun"),
+            "adjective3": get_input("Type another adjective"),
+            "silly_word": get_input("Type a silly word"),
+            "person_name": get_input("Type a person’s name"),
+            "feeling1": get_input("Type a feeling"),
+            "feeling2": get_input("Type another feeling"),
+            "animal": get_input("Type an animal"),
+            "verb2": get_input("Type another verb"),
+            "color2": get_input("Type another color"),
+            "adverb": get_input("Type an adverb"),
+            "animal2": get_input("Type another animal"),
+            "silly_word": get_input("Type a silly word"),
+            "place": get_input("Type a place"),
+            "creature_plural1": get_input("Type a magical creature (plural)"),
+            "creature_plural2": get_input("Type another magical creature (plural)"),
+            "room": get_input("Type a room in a house"),
+            "plural_noun3": get_input("Type a plural noun"),
+            "adjective4": get_input("Type another adjective"),
+            "plural_noun4": get_input("Type another plural noun"),
+            "verb_ing": get_input("Type a verb ending in 'ing'"),
+            "adjective5": get_input("Type another adjective"),
+            "noun5": get_input("Type another noun")
+        }
+        story = template.format(**inputs)
+        print("\nGenerated Story:\n", story)
+    except KeyError as e:
+        print(f"Error: Missing input for {e}. Please try again.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
-template_choice = int(input("Choose a template (1, 2, or 3): ")) - 1
-generate_story(templates[template_choice])
+template_choice = int(get_input("Choose a template (1, 2, or 3)")) - 1
+if 0 <= template_choice < len(templates):
+    generate_story(templates[template_choice])
+else:
+    print("Invalid choice. Please restart and choose a valid template number.")
